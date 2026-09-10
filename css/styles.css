@@ -161,39 +161,6 @@ a {
   color: color-mix(in srgb, var(--cream) 82%, #f0d08a);
 }
 
-.stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem 2.2rem;
-  margin-top: 2.2rem;
-}
-
-.stats div strong {
-  display: block;
-  font-family: var(--serif);
-  font-size: 1.8rem;
-}
-
-.stats div span {
-  font-size: 0.86rem;
-  opacity: 0.8;
-}
-
-.btn-hero {
-  display: inline-flex;
-  margin-top: 1.7rem;
-  background: var(--cream);
-  color: var(--navy);
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 999px;
-  padding: 0.7rem 1.15rem;
-}
-
-.btn-hero:hover {
-  background: #fff;
-}
-
 .mosaic {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -222,16 +189,18 @@ a {
 .explorer-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
-  grid-template-areas:
-    "toolbar map"
-    "list map";
-  column-gap: 1.2rem;
-  row-gap: 0.9rem;
+  gap: 1.2rem;
   align-items: start;
 }
 
+.explorer-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
 .toolbar {
-  grid-area: toolbar;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -240,13 +209,11 @@ a {
 }
 
 .list {
-  grid-area: list;
   display: grid;
   gap: 1.05rem;
 }
 
 .map-panel {
-  grid-area: map;
   align-self: start;
   position: sticky;
   top: 0.75rem;
@@ -564,17 +531,27 @@ a {
 
 @media (max-width: 920px) {
   .explorer-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "toolbar"
-      "map"
-      "list";
+    display: flex;
+    flex-direction: column;
+  }
+
+  .explorer-main {
+    display: contents;
+  }
+
+  .toolbar {
+    order: 0;
   }
 
   .map-panel {
+    order: 1;
     position: relative;
     top: 0;
     height: auto;
+  }
+
+  .list {
+    order: 2;
   }
 
   #map {

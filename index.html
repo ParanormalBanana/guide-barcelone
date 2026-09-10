@@ -52,21 +52,6 @@
           ses différents quartiers. Voici treize lieux — du tourisme de base aux
           adresses plus niches — rassemblés sur une carte.
         </p>
-        <div class="stats">
-          <div>
-            <strong>13</strong>
-            <span>lieux à visiter</span>
-          </div>
-          <div>
-            <strong>4</strong>
-            <span>parcours thématiques</span>
-          </div>
-          <div>
-            <strong>1</strong>
-            <span>carte interactive</span>
-          </div>
-        </div>
-        <a class="btn btn-hero" href="#carte">Voir la carte</a>
       </div>
     </header>
     <div class="mosaic" aria-hidden="true">
@@ -77,21 +62,24 @@
     <main>
       <section class="explorer" id="carte">
         <div class="wrap explorer-grid">
-          <div class="toolbar">
-            <div>
-              <h2 id="lieux">Carte &amp; suggestions</h2>
-              <p>
-                <span id="visible-count">13</span> lieux affichés. Filtrez, cliquez un
-                pin, ou une fiche.
-              </p>
-              <p class="legend">
-                <span><i class="dot classics"></i>Incontournables</span>
-                <span><i class="dot heritage"></i>Patrimoine</span>
-                <span><i class="dot parks"></i>Parcs &amp; histoire</span>
-                <span><i class="dot local"></i>Culture locale</span>
-              </p>
+          <div class="explorer-main">
+            <div class="toolbar">
+              <div>
+                <h2 id="lieux">Carte &amp; suggestions</h2>
+                <p>
+                  <span id="visible-count">13</span> lieux affichés. Filtrez, cliquez un
+                  pin, ou une fiche.
+                </p>
+                <p class="legend">
+                  <span><i class="dot classics"></i>Incontournables</span>
+                  <span><i class="dot heritage"></i>Patrimoine</span>
+                  <span><i class="dot parks"></i>Parcs &amp; histoire</span>
+                  <span><i class="dot local"></i>Culture locale</span>
+                </p>
+              </div>
+              <div class="filters" id="filters" role="group" aria-label="Filtres"></div>
             </div>
-            <div class="filters" id="filters" role="group" aria-label="Filtres"></div>
+            <div class="list" id="place-list"></div>
           </div>
           <aside class="map-panel">
             <div id="map" role="application" aria-label="Carte des lieux à Barcelone"></div>
@@ -100,7 +88,6 @@
               <span>Molette : cliquez d’abord la carte.</span>
             </div>
           </aside>
-          <div class="list" id="place-list"></div>
         </div>
       </section>
     </main>
