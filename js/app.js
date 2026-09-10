@@ -2,7 +2,7 @@
   const places = window.GUIDE_PLACES;
   const categories = window.GUIDE_CATEGORIES;
   const sections = window.GUIDE_SECTIONS;
-  const itinerary = window.GUIDE_ITINERARY;
+  const itineraries = window.GUIDE_ITINERARIES;
 
   const listEl = document.getElementById("place-list");
   const filtersEl = document.getElementById("filters");
@@ -10,19 +10,31 @@
   const leadEl = document.getElementById("list-lead");
   const legendEl = document.getElementById("legend");
   let activeFilter = "all";
+  let activePlanId = "a";
   let activeId = null;
   const markers = new Map();
 
-  const itineraryPlaceIds = [];
-  const placeDay = {};
-  itinerary.forEach((day) => {
-    day.slots.forEach((slot) => {
-      (slot.placeIds || []).forEach((id) => {
-        if (!placeDay[id]) placeDay[id] = day.id;
-        if (itineraryPlaceIds.indexOf(id) === -1) itineraryPlaceIds.push(id);
+  function currentPlan() {
+    return itineraries.find((plan) => plan.id === activePlanId) || itineraries[0];
+  }
+
+  function currentDays() {
+    return currentPlan().days;
+  }
+
+  function itineraryIndex() {
+    const itineraryPlaceIds = [];
+    const placeDay = {};
+    currentDays().forEach((day) => {
+      day.slots.forEach((slot) => {
+        (slot.placeIds || []).forEach((id) => {
+          if (!placeDay[id]) placeDay[id] = day.id;
+          if (itineraryPlaceIds.indexOf(id) === -1) itineraryPlaceIds.push(id);
+        });
       });
     });
-  });
+    return { itineraryPlaceIds, placeDay };
+  }
 
   function pad(n) {
     return String(n).padStart(2, "0");
@@ -77,8 +89,14 @@
 
   function updateChrome() {
     if (isItinerary()) {
+      const plan = currentPlan();
       countEl.textContent = "5";
-      leadEl.textContent = " jours, samedi soir → mercredi après-midi.";
+      leadEl.textContent =
+        " jours, samedi soir → mercredi après-midi · " +
+        plan.short +
+        " · " +
+        plan.label +
+        ".";
       legendEl.innerHTML =
         '<span><i class="dot day-samedi"></i>Samedi</span>' +
         '<span><i class="dot day-dimanche"></i>Dimanche</span>' +
@@ -97,7 +115,7 @@
 
   function visiblePlaces() {
     if (isItinerary()) {
-      return itineraryPlaceIds.map(placeById).filter(Boolean);
+      return itineraryIndex().itineraryPlaceIds.map(placeById).filter(Boolean);
     }
     return places.filter(
       (place) => activeFilter === "all" || place.category === activeFilter
@@ -106,6 +124,7 @@
 
   function assignNumbers() {
     if (isItinerary()) {
+      const { itineraryPlaceIds } = itineraryIndex();
       itineraryPlaceIds.forEach((id, i) => {
         const place = placeById(id);
         if (place) place.number = i + 1;
@@ -126,10 +145,62 @@
     });
   }
 
+  function setActivePlan(id) {
+    if (activePlanId === id) return;
+    activePlanId = id;
+    const visible = new Set(itineraryIndex().itineraryPlaceIds);
+    if (activeId && !visible.has(activeId)) activeId = null;
+    renderList();
+    updateChrome();
+    syncMarkers();
+    fitVisible();
+  }
+
+  function renderPlanHead() {
+    const plan = currentPlan();
+    const switcher = document.createElement("div");
+    switcher.className = "itin-head";
+    const pills = itineraries
+      .map((item) => {
+        const pressed = item.id === plan.id ? "true" : "false";
+        return (
+          '<button class="itin-plan" type="button" data-plan="' +
+          item.id +
+          '" aria-pressed="' +
+          pressed +
+          '">' +
+          escapeHtml(item.short) +
+          " · " +
+          escapeHtml(item.label) +
+          "</button>"
+        );
+      })
+      .join("");
+    const paragraphs = plan.verdict
+      .map((line) => "<p>" + escapeHtml(line) + "</p>")
+      .join("");
+    switcher.innerHTML =
+      '<p class="kicker">Variantes</p>' +
+      "<h3>Trois façons de poser les cinq jours</h3>" +
+      '<div class="itin-switch" role="group" aria-label="Variante d\'itinéraire">' +
+      pills +
+      "</div>" +
+      '<div class="itin-verdict">' +
+      paragraphs +
+      "</div>";
+    switcher.querySelectorAll("[data-plan]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setActivePlan(btn.getAttribute("data-plan"));
+      });
+    });
+    listEl.appendChild(switcher);
+  }
+
   function renderItinerary() {
     listEl.innerHTML = "";
     assignNumbers();
-    itinerary.forEach((day) => {
+    renderPlanHead();
+    currentDays().forEach((day) => {
       const article = document.createElement("article");
       article.className = "itin-day day-" + day.id;
       article.id = "jour-" + day.id;
@@ -261,6 +332,21 @@
     else renderPlaceList();
   }
 
+  listEl.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-focus]");
+    if (button) {
+      focusPlace(button.getAttribute("data-focus"), true);
+      return;
+    }
+    if (event.target.closest("a")) return;
+    const card = event.target.closest(".place");
+    if (card) focusPlace(card.id, true);
+  });
+
+  renderFilters();
+  renderList();
+  updateChrome();
+
   const map = L.map("map", {
     scrollWheelZoom: false,
     zoomControl: true,
@@ -278,7 +364,10 @@
   map.on("click", () => map.scrollWheelZoom.enable());
 
   function pinClass(place) {
-    if (isItinerary() && placeDay[place.id]) return "day-" + placeDay[place.id];
+    if (isItinerary()) {
+      const dayId = itineraryIndex().placeDay[place.id];
+      if (dayId) return "day-" + dayId;
+    }
     return place.category;
   }
 
@@ -344,7 +433,9 @@
 
   function placeInCurrentView(place) {
     if (activeFilter === "all") return true;
-    if (isItinerary()) return itineraryPlaceIds.indexOf(place.id) !== -1;
+    if (isItinerary()) {
+      return itineraryIndex().itineraryPlaceIds.indexOf(place.id) !== -1;
+    }
     return place.category === activeFilter;
   }
 
@@ -385,20 +476,6 @@
     }
   }
 
-  listEl.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-focus]");
-    if (button) {
-      focusPlace(button.getAttribute("data-focus"), true);
-      return;
-    }
-    if (event.target.closest("a")) return;
-    const card = event.target.closest(".place");
-    if (card) focusPlace(card.id, true);
-  });
-
-  renderFilters();
-  renderList();
-  updateChrome();
   addMarkers();
   syncMarkers();
 
