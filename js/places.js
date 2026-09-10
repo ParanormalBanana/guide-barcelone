@@ -28,7 +28,7 @@ window.GUIDE_PLACES = [
       "Un jardin public enchanteur perché sur les hauteurs, célèbre pour ses bancs en mosaïque ondulants, sa salamandre multicolore et ses viaducs intégrés à la nature.",
     tips: [
       "La zone monumentale payante nécessite un billet horodaté.",
-      "Venez tôt le matin pour éviter la foule et la chaleur.",
+      "Venez tôt le matin. Bus 24 depuis le Passeig de Gràcia, ou métro L3 Lesseps puis 15 à 20 minutes de montée.",
     ],
   },
   {
@@ -45,6 +45,22 @@ window.GUIDE_PLACES = [
     tips: [
       "L'expérience intègre un visioguide immersif en réalité augmentée très bien conçu.",
       "N'hésitez pas à jeter un œil à sa voisine tout aussi spectaculaire, la Casa Amatller.",
+    ],
+  },
+  {
+    id: "pedrera",
+    name: "La Pedrera",
+    neighborhood: "Passeig de Gràcia",
+    category: "classics",
+    kind: "Site historique",
+    rating: 4.6,
+    lat: 41.3953996,
+    lng: 2.1617621,
+    summary:
+      "Autre chef-d'œuvre de Gaudí sur le Passeig de Gràcia, la Casa Milà est surnommée La Pedrera (« la carrière ») pour sa façade de pierre ondulante. Le toit-terrasse, hérissé de cheminées-guerriers, offre l'un des plus beaux belvédères modernistes de la ville.",
+    tips: [
+      "Réservez un créneau horodaté : la visite intérieure et le toit se parcourent en une heure et demie environ.",
+      "Elle n'est qu'à dix minutes à pied au nord de la Casa Batlló, sur le même boulevard.",
     ],
   },
   {
@@ -76,7 +92,7 @@ window.GUIDE_PLACES = [
       "Bien que conçue par Antoni Gaudí, cette demeure située dans le quartier de Gràcia reste très préservée par rapport à la Casa Batlló ou la Pedrera. Premier chef-d'œuvre résidentiel de l'architecte, elle arbore un style néo-mudéjar unique couvert de carreaux de faïence verte et blanche.",
     tips: [
       "Admirez le mélange d'influences orientales et végétales sur la façade et dans le jardin.",
-      "La fréquentation y est modérée, ce qui permet d'étudier les détails architecturaux en toute sérénité.",
+      "Métro L3 Fontana. En descendant du Parc Güell, comptez 20 à 25 minutes à pied ; prévoyez une marge entre les deux visites.",
     ],
   },
   {
@@ -92,7 +108,39 @@ window.GUIDE_PLACES = [
       "Situé sous la Plaça del Rei dans le quartier gothique, ce musée permet de plonger dans le sous-sol de la ville pour explorer les ruines de l'ancienne Barcino romaine.",
     tips: [
       "Des passerelles suspendues permettent de marcher directement au-dessus des anciennes rues, laveries et ateliers de salaison de poisson datant de 2 000 ans.",
-      "C'est une excellente alternative historique aux circuits touristiques classiques en surface.",
+      "La Plaça del Rei, juste au-dessus, se visite aussi le soir : le musée, lui, ferme en fin d'après-midi.",
+    ],
+  },
+  {
+    id: "catedral",
+    name: "Cathédrale de Barcelone",
+    neighborhood: "Barri Gòtic",
+    category: "heritage",
+    kind: "Église",
+    rating: 4.6,
+    lat: 41.3839296,
+    lng: 2.1765539,
+    summary:
+      "La cathédrale de la Sainte-Croix et Sainte-Eulalie domine le quartier gothique. Cloître aux oies, chapelles sombres et façade néogothique : c'est le cœur historique de la ville, à deux pas de la Plaça del Rei.",
+    tips: [
+      "Le soir, privilégiez l'extérieur et les ruelles : l'intérieur ferme généralement en début de soirée.",
+      "Métro L3 Liceu, puis cinq minutes à pied vers la Plaça de la Seu.",
+    ],
+  },
+  {
+    id: "santa-maria-del-mar",
+    name: "Santa Maria del Mar",
+    neighborhood: "El Born",
+    category: "heritage",
+    kind: "Église",
+    rating: 4.7,
+    lat: 41.3837802,
+    lng: 2.1820062,
+    summary:
+      "Basilique gothique catalane du XIVe siècle, élevée par les marins et les portefaix du Born. À l'intérieur, l'espace est d'une clarté rare : trois nefs presque à la même hauteur, piliers élancés, lumière sur la pierre.",
+    tips: [
+      "C'est le meilleur ancrage pour une fin d'après-midi dans El Born : terrazas, Passeig del Born, palais médiévaux.",
+      "Métro L4 Jaume I, puis quelques minutes à pied.",
     ],
   },
   {
@@ -160,6 +208,38 @@ window.GUIDE_PLACES = [
     ],
   },
   {
+    id: "montjuic",
+    name: "Montjuïc",
+    neighborhood: "Sants-Montjuïc",
+    category: "parks",
+    kind: "Panorama",
+    rating: 4.5,
+    lat: 41.3633756,
+    lng: 2.1661443,
+    summary:
+      "La colline qui ferme la ville côté port : jardins, château et vue plongeante sur la mer et les terminaux. Un belvédère classique, plus étalé et plus vert que les bunkers du Carmel.",
+    tips: [
+      "Funiculaire depuis Paral·lel (L2/L3) puis téléphérique, ou bus jusqu'au château.",
+      "Comptez une demi-journée si vous montez au château ; un simple coup d'œil depuis un mirador peut suffire avant un départ.",
+    ],
+  },
+  {
+    id: "barceloneta",
+    name: "Plage de la Barceloneta",
+    neighborhood: "Barceloneta",
+    category: "parks",
+    kind: "Plage",
+    rating: 4.4,
+    lat: 41.3793285,
+    lng: 2.1929710,
+    summary:
+      "La plage urbaine la plus proche du centre : sable, baignade et terrasses de poisson. L'ancien quartier de pêcheurs, derrière la promenade, reste plus intéressant que la première ligne de chaises-longues.",
+    tips: [
+      "Métro L4 Barceloneta, ou à pied depuis le bas de la Rambla (colonne de Colomb) en une quinzaine de minutes.",
+      "Pour déjeuner, reculez d'une rue vers le quartier plutôt que les plus grosses terrasses de plage.",
+    ],
+  },
+  {
     id: "encants",
     name: "Mercat dels Encants",
     neighborhood: "Glòries",
@@ -207,6 +287,38 @@ window.GUIDE_PLACES = [
       "C'est une halte culturelle parfaite lors d'une déambulation dans les rues créatives de Poblenou.",
     ],
   },
+  {
+    id: "boqueria",
+    name: "Marché de la Boqueria",
+    neighborhood: "La Rambla",
+    category: "local",
+    kind: "Marché",
+    rating: 4.3,
+    lat: 41.381736,
+    lng: 2.1715515,
+    summary:
+      "Le grand marché couvert de Sant Josep, collé à la Rambla : étals de fruits, jambons, fruits de mer et bars à tapas. Touristique, mais toujours le meilleur point de départ pour descendre vers le port.",
+    tips: [
+      "Arrivez vers 10h : déjà vivant, moins saturé qu'à midi. Fermé le dimanche.",
+      "Métro L3 Liceu, entrée par la Rambla. Enchaînez ensuite tout droit jusqu'au port, puis la Barceloneta.",
+    ],
+  },
+  {
+    id: "placa-del-sol",
+    name: "Plaça del Sol",
+    neighborhood: "Gràcia",
+    category: "local",
+    kind: "Place",
+    rating: 4.4,
+    lat: 41.4016246,
+    lng: 2.1567108,
+    summary:
+      "Petite place de village au cœur de Gràcia, entre bars en terrasse et rues commerçantes. C'est l'endroit naturel pour une pause café après la Casa Vicens, loin du Passeig de Gràcia.",
+    tips: [
+      "Dix minutes à pied depuis la Casa Vicens, dans les ruelles de la Vila de Gràcia.",
+      "En fin d'après-midi la place s'anime ; le matin elle reste un simple carrefour de quartier.",
+    ],
+  },
 ];
 
 window.GUIDE_CATEGORIES = [
@@ -223,27 +335,27 @@ window.GUIDE_SECTIONS = [
     title: "Les incontournables",
     kicker: "Tourisme majeur",
     intro:
-      "Les chefs-d'œuvre que tout le monde vient voir — à condition de réserver, et d'arriver tôt.",
+      "Les chefs-d'œuvre que tout le monde vient voir — à condition de réserver, et d'arriver tôt. Gaudí se suit à pied sur le Passeig de Gràcia : Batlló puis Pedrera.",
   },
   {
     id: "heritage",
     title: "Patrimoine méconnu",
     kicker: "Pépites architecturales",
     intro:
-      "Le modernisme hors des files d'attente, Barcino sous le quartier gothique, et une bibliothèque à dragons.",
+      "Gothique au sol (cathédrale, Santa Maria del Mar, Barcino sous la Plaça del Rei) et modernisme plus calme (Sant Pau, Vicens, bibliothèque à dragons).",
   },
   {
     id: "parks",
     title: "Parcs insolites & histoire",
     kicker: "Plein air et sous terre",
     intro:
-      "Un labyrinthe néoclassique, un panorama de guerre civile, et 400 mètres de tunnels creusés à la main.",
+      "Colline de Montjuïc, plage de la Barceloneta, labyrinthe néoclassique, bunkers du Carmel et tunnels du Refugi 307.",
   },
   {
     id: "local",
     title: "Culture locale & atmosphères",
     kicker: "Adresses atypiques",
     intro:
-      "Encants au petit matin, un cloître de plantes médicinales, et l'atelier du sculpteur de la façade de la Passion.",
+      "Boqueria sur la Rambla, Plaça del Sol à Gràcia, Encants au petit matin, cloître de Pedralbes et atelier Subirachs à Poblenou.",
   },
 ];

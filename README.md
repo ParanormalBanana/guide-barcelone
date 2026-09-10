@@ -1,6 +1,6 @@
 # Guide de Barcelone
 
-Page statique (HTML / CSS / JS) : treize lieux, quatre parcours, carte interactive. Aucun build, aucune clé API.
+Page statique (HTML / CSS / JS) : vingt lieux, quatre parcours, carte interactive. Aucun build, aucune clé API.
 
 Site : [paranormalbanana.github.io/guide-barcelone](https://paranormalbanana.github.io/guide-barcelone/)
 
