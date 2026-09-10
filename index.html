@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guide de Barcelone — Incontournables et pépites</title>
+    <meta
+      name="description"
+      content="Treize lieux à Barcelone : Sagrada Família et Parc Güell, mais aussi Sant Pau, Casa Vicens, le labyrinthe d'Horta, les bunkers du Carmel et d'autres adresses plus confidentielles."
+    />
+    <meta property="og:title" content="Guide de Barcelone — Incontournables et pépites" />
+    <meta
+      property="og:description"
+      content="Carte interactive et suggestions : classiques, patrimoine méconnu, parcs insolites et adresses locales."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#16343a" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#carte">Aller à la carte</a>
+    <header class="hero">
+      <div class="wrap">
+        <div class="topbar">
+          <div class="mark">
+            <span class="mark-tile" aria-hidden="true"></span>
+            Guide de ville
+          </div>
+          <nav class="nav" aria-label="Sections">
+            <a href="#carte">Carte</a>
+            <a href="#lieux">Lieux</a>
+          </nav>
+        </div>
+        <p class="kicker">Barcelone · incontournables et pépites</p>
+        <h1>Que faire à Barcelone, au-delà des files d’attente.</h1>
+        <p class="lead">
+          Barcelone offre un équilibre parfait entre des chefs-d’œuvre architecturaux
+          mondialement connus et des pépites bien plus confidentielles dissimulées dans
+          ses différents quartiers. Voici treize lieux — du tourisme de base aux
+          adresses plus niches — rassemblés sur une carte.
+        </p>
+        <div class="stats">
+          <div>
+            <strong>13</strong>
+            <span>lieux à visiter</span>
+          </div>
+          <div>
+            <strong>4</strong>
+            <span>parcours thématiques</span>
+          </div>
+          <div>
+            <strong>1</strong>
+            <span>carte interactive</span>
+          </div>
+        </div>
+        <a class="btn btn-hero" href="#carte">Voir la carte</a>
+      </div>
+    </header>
+    <div class="mosaic" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <main>
+      <section class="explorer" id="carte">
+        <div class="wrap explorer-grid">
+          <div class="toolbar">
+            <div>
+              <h2 id="lieux">Carte &amp; suggestions</h2>
+              <p>
+                <span id="visible-count">13</span> lieux affichés. Filtrez, cliquez un
+                pin, ou une fiche.
+              </p>
+              <p class="legend">
+                <span><i class="dot classics"></i>Incontournables</span>
+                <span><i class="dot heritage"></i>Patrimoine</span>
+                <span><i class="dot parks"></i>Parcs &amp; histoire</span>
+                <span><i class="dot local"></i>Culture locale</span>
+              </p>
+            </div>
+            <div class="filters" id="filters" role="group" aria-label="Filtres"></div>
+          </div>
+          <aside class="map-panel">
+            <div id="map" role="application" aria-label="Carte des lieux à Barcelone"></div>
+            <div class="map-caption">
+              <span>Cliquez un numéro ou une fiche.</span>
+              <span>Molette : cliquez d’abord la carte.</span>
+            </div>
+          </aside>
+          <div class="list" id="place-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Compilé d’après un guide Gemini (incontournables + adresses plus niches).
+          Horaires, billets et notes peuvent changer : vérifiez avant de partir.
+        </p>
+        <p>Carte Esri / OpenStreetMap · page statique pour GitHub Pages.</p>
+      </div>
+    </footer>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./js/places.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
