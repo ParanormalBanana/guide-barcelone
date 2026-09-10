@@ -232,115 +232,6 @@
     ],
   };
 
-  const dimancheC = {
-    id: "dimanche",
-    day: "Dimanche",
-    hours: "9h30 – 19h",
-    title: "Barcino, puis Vicens",
-    intro:
-      "Une seule maison Gaudí, et ce n'est pas Batlló. Le MUHBA le matin (billet payant, avant 15h), Vicens et Gràcia ensuite. Pas de Passeig.",
-    metro: "L4 · Jaume I, puis L3 · Fontana",
-    slots: [
-      {
-        time: "9h30 – 13h",
-        title: "El Born & MUHBA",
-        text: "Santa Maria del Mar, puis Barcino sous la Plaça del Rei. On paie : la gratuité du dimanche après 15h attire trop de monde. C'est l'anti-carte postale du Gothique.",
-        placeIds: ["santa-maria-del-mar", "muhba"],
-      },
-      {
-        time: "13h – 15h",
-        title: "Casa Vicens",
-        text: "La première maison, plus musée que thème park. Moins chère, moins de files. Métro Fontana.",
-        placeIds: ["casa-vicens"],
-      },
-      {
-        time: "15h – 19h",
-        title: "Gràcia · Plaça del Sol",
-        text: "Quartier village, terrasses, vermouth. Dix minutes à pied depuis Vicens.",
-        placeIds: ["placa-del-sol"],
-      },
-    ],
-  };
-
-  const lundiC = {
-    id: "lundi",
-    day: "Lundi",
-    hours: "9h – 20h",
-    title: "Encants, Sant Pau & bunkers",
-    intro:
-      "Pas de zone monumentale à Güell : on paie les mosaïques, pas la vue — les bunkers feront mieux, le soir, gratuit. Sant Pau ouvre tous les jours, y compris lundi.",
-    metro: "L1 / L2 · Glòries, puis Sant Pau ; taxi vers les bunkers",
-    slots: [
-      {
-        time: "9h – 10h15",
-        title: "Mercat dels Encants",
-        text: "Ouvert lundi. Pour les enchères, plus tôt encore (vers 8h). Un arrêt de métro / dix minutes de Sant Pau.",
-        placeIds: ["encants"],
-      },
-      {
-        time: "10h30 – 13h30",
-        title: "Recinte Modernista de Sant Pau",
-        text: "Plus grand complexe Art nouveau au monde, beaucoup plus calme que Gaudí. Ouvert 9h30–18h30 en septembre. Billet souvent possible sur place.",
-        placeIds: ["sant-pau"],
-      },
-      {
-        time: "13h30 – 18h",
-        title: "Pause à l'est",
-        text: "Déjeuner près de Sant Pau ou retour à l'hôtel. Garder les jambes pour la colline du soir.",
-        placeIds: [],
-      },
-      {
-        time: "18h30 – 20h",
-        title: "Bunkers del Carmel",
-        text: "Coucher de soleil vers 19h40. Gratuit, panorama plus large que Güell. Taxi depuis Sant Pau ou l'hôtel.",
-        placeIds: ["bunkers"],
-      },
-    ],
-  };
-
-  const mardiC = {
-    id: "mardi",
-    day: "Mardi",
-    hours: "10h – 18h",
-    title: "Poble-sec & Montjuïc",
-    intro:
-      "On lâche Boqueria, Rambla et Barceloneta : marché-spectacle, couloir à boutiques, plage saturée. À la place, un abri de 1937 et la colline verte au-dessus du port.",
-    metro: "L2 / L3 · Paral·lel, puis funiculaire ou bus vers Montjuïc",
-    slots: [
-      {
-        time: "10h – 12h",
-        title: "Refugi 307",
-        text: "Abri anti-aérien au pied de Montjuïc. Visite guidée, uniquement sur réservation. Plus de 400 m de tunnels creusés à la main.",
-        placeIds: ["refugi-307"],
-      },
-      {
-        time: "12h – 18h",
-        title: "Montjuïc",
-        text: "Jardins et miradors, pas forcément le château entier. Funiculaire depuis Paral·lel. Déjeuner à Poble-sec, pas sur la Rambla.",
-        placeIds: ["montjuic"],
-      },
-    ],
-  };
-
-  const mercrediC = {
-    id: "mercredi",
-    day: "Mercredi",
-    hours: "12h – 19h10",
-    title: "Déjeuner & départ T2C",
-    intro:
-      "Encants et Sant Pau ont sauté au lundi. Pas de course vers Horta ou Pedralbes le jour des valises : trop loin. Déjeuner près de l'hôtel, train vers 16h pour le vol de 19h10.",
-    metro: "Départ R2 Nord · Passeig de Gràcia → Aeroport (T2)",
-    slots: [
-      {
-        time: "12h – 15h",
-        title: "Dernier déjeuner",
-        text: "Près de l'hôtel. Labyrinthe d'Horta et Pedralbes restent sur la carte Tous / Parcs — pas le jour du vol.",
-        placeIds: [],
-      },
-      depart,
-    ],
-  };
-
   window.GUIDE_ITINERARIES = [
     {
       id: "a",
@@ -365,18 +256,6 @@
         "Lundi est la journée dense. Si le rythme casse, gardez Pedrera : Batlló se voit très bien de la rue.",
       ],
       days: [samedi, dimancheB, lundiB, mardiA, mercrediA],
-    },
-    {
-      id: "c",
-      short: "Plan C",
-      label: "moins touristique",
-      title: "Moins touristique",
-      verdict: [
-        "Moins de billets empilés, moins de files. Une seule maison Gaudí — Vicens, plus calme — et la vue depuis les bunkers, sans payer Güell. Pas de Passeig, pas de Rambla, pas de plage le mardi.",
-        "Le samedi soir dans le Gothique ne change pas : c'est l'arrivée. Dimanche, le musée sous la Plaça del Rei puis Gràcia. Lundi, Encants et Sant Pau. Mardi, le Refugi 307 (à réserver) et Montjuïc. Mercredi, déjeuner près de l'hôtel et départ.",
-        "Horta, Pedralbes, Subirachs et Arús restent sur la carte, dans Tous — pas dans ces cinq jours.",
-      ],
-      days: [samedi, dimancheC, lundiC, mardiC, mercrediC],
     },
   ];
 })();
