@@ -1,13 +1,35 @@
 (function () {
+  const tmbLink = {
+    href: "https://www.tmb.cat/en/barcelona-fares-metro-bus/tickets-visit-barcelona/barcelona-travel-card-hola-bcn",
+    label: "Acheter un titre TMB",
+  };
+
+  const arrivee = {
+    time: "15h25 – 18h",
+    title: "Arrivée · Aéroport T2C",
+    text: "Vol à 15h25, terminal 2C. Le plus simple depuis T2 : train R2 Nord (panneaux R), gare Aeroport à deux cents mètres, billets aux distributeurs. Direction Passeig de Gràcia, ~25 min. Pour le métro et le bus en ville, une Hola Barcelona 5 jours (samedi → mercredi) s'achète en ligne ; elle inclut le L9 Sud aéroport, pas le train R2.",
+    placeIds: [],
+    link: tmbLink,
+  };
+
+  const depart = {
+    time: "16h – 19h10",
+    title: "Départ · Aéroport T2C",
+    text: "Vol à 19h10, terminal 2C. R2 Nord depuis Passeig de Gràcia, direction Aeroport (~25 min). Viser T2 vers 16h45. Sinon L9 Sud avec un titre aéroport ou une Hola Barcelona. Même lien qu'à l'arrivée pour les titres métro / bus.",
+    placeIds: [],
+    link: tmbLink,
+  };
+
   const samedi = {
     id: "samedi",
     day: "Samedi",
-    hours: "18h – 21h",
-    title: "Arrivée & quartier gothique",
+    hours: "15h25 – 21h",
+    title: "Arrivée T2C & quartier gothique",
     intro:
-      "Une fois les bagages posés : ruelles, façades, tapas. L'intérieur de la cathédrale sera souvent déjà fermé ; la place et les rues suffisent.",
-    metro: "Métro L3 · Liceu",
+      "Poser les sacs, puis les ruelles. L'intérieur de la cathédrale sera souvent déjà fermé ; la place et les rues suffisent.",
+    metro: "R2 Nord · Aeroport → Passeig de Gràcia, puis L3 · Liceu",
     slots: [
+      arrivee,
       {
         time: "18h – 21h",
         title: "Cathédrale & Plaça del Rei",
@@ -44,11 +66,11 @@
   const mercrediA = {
     id: "mercredi",
     day: "Mercredi",
-    hours: "9h – 17h",
-    title: "Encants, Sant Pau & départ",
+    hours: "9h – 19h10",
+    title: "Encants, Sant Pau & départ T2C",
     intro:
-      "Pas de Sagrada (complet). Le panorama a été fait lundi soir : on reste à l'est, à plat, sans funiculaire le jour des valises. Déjeuner près de l'hôtel.",
-    metro: "L1 / L2 · Glòries, puis Sant Pau ; départ L9 Sud ou R2 Nord",
+      "Pas de Sagrada (complet). Le panorama a été fait lundi soir : on reste à l'est, à plat, sans funiculaire le jour des valises. Déjeuner près de l'hôtel, train vers 16h.",
+    metro: "L1 / L2 · Glòries, puis Sant Pau ; départ R2 Nord · Passeig de Gràcia → Aeroport",
     slots: [
       {
         time: "9h – 10h15",
@@ -65,15 +87,10 @@
       {
         time: "13h – 15h",
         title: "Dernier déjeuner",
-        text: "Tapas ou paella près de l'hôtel, pas à Sant Pau : à 15h il faut les bagages.",
+        text: "Tapas ou paella près de l'hôtel, pas à Sant Pau : à 15h il faut les bagages, à 16h le train.",
         placeIds: [],
       },
-      {
-        time: "15h – 17h",
-        title: "Bagages & départ",
-        text: "L9 Sud (T1/T2) ou train R2 Nord depuis Passeig de Gràcia / Sants (~20–30 min). Prévoir 2 h à 2 h 30 avant l'embarquement.",
-        placeIds: [],
-      },
+      depart,
     ],
   };
 
@@ -308,24 +325,19 @@
   const mercrediC = {
     id: "mercredi",
     day: "Mercredi",
-    hours: "12h – 17h",
-    title: "Déjeuner & départ",
+    hours: "12h – 19h10",
+    title: "Déjeuner & départ T2C",
     intro:
-      "Encants et Sant Pau ont sauté au lundi. Pas de course vers Horta ou Pedralbes le jour des valises : trop loin, et les deux ferment souvent le lundi — pas aujourd'hui, mais le timing bagages ne pardonne pas.",
-    metro: "Départ L9 Sud ou R2 Nord depuis Passeig de Gràcia / Sants",
+      "Encants et Sant Pau ont sauté au lundi. Pas de course vers Horta ou Pedralbes le jour des valises : trop loin. Déjeuner près de l'hôtel, train vers 16h pour le vol de 19h10.",
+    metro: "Départ R2 Nord · Passeig de Gràcia → Aeroport (T2)",
     slots: [
       {
         time: "12h – 15h",
         title: "Dernier déjeuner",
-        text: "Près de l'hôtel. Labyrinthe d'Horta et Pedralbes restent sur la carte Tous / Parcs si un vol très tardif laisse une matinée — ce n'est pas le plan.",
+        text: "Près de l'hôtel. Labyrinthe d'Horta et Pedralbes restent sur la carte Tous / Parcs — pas le jour du vol.",
         placeIds: [],
       },
-      {
-        time: "15h – 17h",
-        title: "Bagages & départ",
-        text: "L9 Sud (T1/T2) ou train R2 Nord depuis Passeig de Gràcia / Sants (~20–30 min). Prévoir 2 h à 2 h 30 avant l'embarquement.",
-        placeIds: [],
-      },
+      depart,
     ],
   };
 
@@ -338,7 +350,7 @@
       verdict: [
         "Le fil principal du séjour. Dimanche sur le Passeig (Batlló puis Pedrera, à dix minutes à pied), lundi dans les collines de Gràcia, mardi vers la mer, mercredi Encants et Sant Pau avant les valises.",
         "Les journées suivent ce qui ferme : Boqueria le dimanche, musée d'histoire le lundi, Encants le mardi. La Sagrada n'y est pas — complet.",
-        "C'est le plan le plus classique. Deux maisons Gaudí le même dimanche, des files le week-end, et les icônes dans l'ordre.",
+        "C'est le plan le plus classique : Batlló et Pedrera le même dimanche, quitte à partager le Passeig avec le week-end.",
       ],
       days: [samedi, dimancheA, lundiA, mardiA, mercrediA],
     },

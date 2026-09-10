@@ -94,7 +94,7 @@
       const plan = currentPlan();
       countEl.textContent = "5";
       leadEl.textContent =
-        " jours, samedi soir → mercredi après-midi · " +
+        " jours, vol samedi 15h25 T2C → mercredi 19h10 T2C · " +
         plan.short +
         " · " +
         plan.label +
@@ -225,6 +225,16 @@
               );
             })
             .join("");
+          const linkBtn = slot.link
+            ? '<a class="btn btn-ext" href="' +
+              escapeHtml(slot.link.href) +
+              '" target="_blank" rel="noopener noreferrer">' +
+              escapeHtml(slot.link.label) +
+              "</a>"
+            : "";
+          const actions = chips || linkBtn
+            ? '<div class="actions">' + chips + linkBtn + "</div>"
+            : "";
           return (
             '<li class="itin-slot">' +
             '<p class="itin-time">' +
@@ -236,7 +246,7 @@
             "<p>" +
             escapeHtml(slot.text) +
             "</p>" +
-            (chips ? '<div class="actions">' + chips + "</div>" : "") +
+            actions +
             "</li>"
           );
         })
