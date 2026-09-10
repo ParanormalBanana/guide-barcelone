@@ -214,11 +214,25 @@ a {
   flex: 1 1 16rem;
 }
 
-.filters {
+.toolbar-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.45rem;
+  max-width: 100%;
+}
+
+.filters,
+.itin-switch {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
   max-width: 100%;
+  justify-content: flex-end;
+}
+
+.itin-switch[hidden] {
+  display: none !important;
 }
 
 .toolbar h2 {
@@ -466,16 +480,10 @@ a {
 }
 
 .itin-head h3 {
-  margin: 0.15rem 0 0.7rem;
+  margin: 0.15rem 0 0;
   font-family: var(--serif);
   font-size: 1.4rem;
   letter-spacing: -0.02em;
-}
-
-.itin-switch {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
 }
 
 .itin-plan {
@@ -671,6 +679,13 @@ a {
     order: 0;
   }
 
+  .toolbar-controls,
+  .filters,
+  .itin-switch {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
   .map-panel {
     order: 1;
     position: relative;
@@ -705,6 +720,7 @@ a {
 @media print {
   .topbar,
   .filters,
+  .itin-switch,
   .map-panel,
   .actions {
     display: none !important;

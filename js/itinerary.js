@@ -334,6 +334,7 @@
       id: "a",
       short: "Plan A",
       label: "actuel",
+      title: "Actuel",
       verdict: [
         "Le parcours de base : Gaudí du Passeig le dimanche, collines de Gràcia le lundi, mer et marché le mardi, Encants et Sant Pau le mercredi avant les valises.",
         "Sagrada hors circuit (complet). MUHBA fermé le lundi, Boqueria fermée le dimanche, Encants fermés le mardi : les jours tiennent à ces fermetures.",
@@ -345,6 +346,7 @@
       id: "b",
       short: "Plan B",
       label: "dimanche chargé",
+      title: "Dimanche chargé",
       verdict: [
         "Le dimanche 13 n'est pas férié. Le férié, c'était vendredi 11 (Diada) ; La Mercè est le 24, hors séjour. Vendredi, le centre était vraiment saturé — mais l'arrivée est samedi soir : ce pic-là est déjà passé.",
         "Ce qui reste vrai le 13 : c'est le troisième jour d'un pont. Locaux en terrasse, maisons du Passeig au pic week-end, MUHBA gratuit après 15h — donc des files à l'heure où le plan A y va. Boqueria et Encants fermés.",
@@ -356,6 +358,7 @@
       id: "c",
       short: "Plan C",
       label: "moins touristique",
+      title: "Moins touristique",
       verdict: [
         "Surcoté surtout en combo, pas lieu par lieu. Batlló et Pedrera le même jour : même boulevard, même budget, rendement décroissant. Güell se paie pour les mosaïques, pas pour la vue — les bunkers font mieux, gratuits. Boqueria + Rambla : spectacle et couloir ; manger là est le vrai piège. Barceloneta : plage la plus proche, aussi la plus saturée.",
         "On garde le Gothique du samedi (court) et le MUHBA (Barcino sous la place). Une seule maison Gaudí : Vicens. Encants et Sant Pau montent au lundi. Mardi : Refugi 307 et Montjuïc à la place du front de mer.",

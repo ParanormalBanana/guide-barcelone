@@ -6,6 +6,7 @@
 
   const listEl = document.getElementById("place-list");
   const filtersEl = document.getElementById("filters");
+  const planSwitchEl = document.getElementById("plan-switch");
   const countEl = document.getElementById("visible-count");
   const leadEl = document.getElementById("list-lead");
   const legendEl = document.getElementById("legend");
@@ -85,6 +86,7 @@
       });
       filtersEl.appendChild(btn);
     });
+    renderPlanSwitch();
   }
 
   function updateChrome() {
@@ -150,50 +152,52 @@
     activePlanId = id;
     const visible = new Set(itineraryIndex().itineraryPlaceIds);
     if (activeId && !visible.has(activeId)) activeId = null;
+    renderPlanSwitch();
     renderList();
     updateChrome();
     syncMarkers();
     fitVisible();
   }
 
+  function renderPlanSwitch() {
+    planSwitchEl.innerHTML = "";
+    if (!isItinerary()) {
+      planSwitchEl.hidden = true;
+      return;
+    }
+    planSwitchEl.hidden = false;
+    itineraries.forEach((item) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "itin-plan";
+      btn.textContent = item.short;
+      btn.setAttribute("data-plan", item.id);
+      btn.setAttribute("aria-pressed", item.id === activePlanId ? "true" : "false");
+      btn.addEventListener("click", () => {
+        setActivePlan(item.id);
+      });
+      planSwitchEl.appendChild(btn);
+    });
+  }
+
   function renderPlanHead() {
     const plan = currentPlan();
-    const switcher = document.createElement("div");
-    switcher.className = "itin-head";
-    const pills = itineraries
-      .map((item) => {
-        const pressed = item.id === plan.id ? "true" : "false";
-        return (
-          '<button class="itin-plan" type="button" data-plan="' +
-          item.id +
-          '" aria-pressed="' +
-          pressed +
-          '">' +
-          escapeHtml(item.short) +
-          " · " +
-          escapeHtml(item.label) +
-          "</button>"
-        );
-      })
-      .join("");
+    const head = document.createElement("div");
+    head.className = "itin-head";
     const paragraphs = plan.verdict
       .map((line) => "<p>" + escapeHtml(line) + "</p>")
       .join("");
-    switcher.innerHTML =
-      '<p class="kicker">Variantes</p>' +
-      "<h3>Trois façons de poser les cinq jours</h3>" +
-      '<div class="itin-switch" role="group" aria-label="Variante d\'itinéraire">' +
-      pills +
-      "</div>" +
+    head.innerHTML =
+      '<p class="kicker">' +
+      escapeHtml(plan.short) +
+      "</p>" +
+      "<h3>" +
+      escapeHtml(plan.title) +
+      "</h3>" +
       '<div class="itin-verdict">' +
       paragraphs +
       "</div>";
-    switcher.querySelectorAll("[data-plan]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        setActivePlan(btn.getAttribute("data-plan"));
-      });
-    });
-    listEl.appendChild(switcher);
+    listEl.appendChild(head);
   }
 
   function renderItinerary() {
