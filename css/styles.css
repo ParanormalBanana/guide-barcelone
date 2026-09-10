@@ -118,23 +118,6 @@ a {
   box-shadow: inset 0 0 0 3px color-mix(in srgb, white 18%, transparent);
 }
 
-.nav {
-  display: flex;
-  gap: 0.4rem;
-}
-
-.nav a {
-  text-decoration: none;
-  padding: 0.45rem 0.85rem;
-  border: 1px solid color-mix(in srgb, white 22%, transparent);
-  border-radius: 999px;
-  font-size: 0.88rem;
-}
-
-.nav a:hover {
-  background: color-mix(in srgb, white 12%, transparent);
-}
-
 .kicker {
   margin: 0 0 0.7rem;
   letter-spacing: 0.18em;
@@ -578,8 +561,7 @@ a {
   .topbar,
   .filters,
   .map-panel,
-  .actions,
-  .nav {
+  .actions {
     display: none !important;
   }
 
