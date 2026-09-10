@@ -2,25 +2,19 @@
   const places = window.GUIDE_PLACES;
   const categories = window.GUIDE_CATEGORIES;
   const sections = window.GUIDE_SECTIONS;
-  const itineraries = window.GUIDE_ITINERARIES;
+  const itinerary = window.GUIDE_ITINERARY;
 
   const listEl = document.getElementById("place-list");
   const filtersEl = document.getElementById("filters");
-  const planSwitchEl = document.getElementById("plan-switch");
   const countEl = document.getElementById("visible-count");
   const leadEl = document.getElementById("list-lead");
   const legendEl = document.getElementById("legend");
   let activeFilter = "all";
-  let activePlanId = "a";
   let activeId = null;
   const markers = new Map();
 
-  function currentPlan() {
-    return itineraries.find((plan) => plan.id === activePlanId) || itineraries[0];
-  }
-
   function currentDays() {
-    return currentPlan().days;
+    return itinerary.days;
   }
 
   function itineraryIndex() {
@@ -86,19 +80,12 @@
       });
       filtersEl.appendChild(btn);
     });
-    renderPlanSwitch();
   }
 
   function updateChrome() {
     if (isItinerary()) {
-      const plan = currentPlan();
       countEl.textContent = "5";
-      leadEl.textContent =
-        " jours, vol samedi 15h25 T2C → mercredi 19h10 T2C · " +
-        plan.short +
-        " · " +
-        plan.label +
-        ".";
+      leadEl.textContent = " jours, vol samedi 15h25 T2C → mercredi 19h10 T2C.";
       legendEl.innerHTML =
         '<span><i class="dot day-samedi"></i>Samedi</span>' +
         '<span><i class="dot day-dimanche"></i>Dimanche</span>' +
@@ -147,52 +134,18 @@
     });
   }
 
-  function setActivePlan(id) {
-    if (activePlanId === id) return;
-    activePlanId = id;
-    const visible = new Set(itineraryIndex().itineraryPlaceIds);
-    if (activeId && !visible.has(activeId)) activeId = null;
-    renderPlanSwitch();
-    renderList();
-    updateChrome();
-    syncMarkers();
-    fitVisible();
-  }
-
-  function renderPlanSwitch() {
-    planSwitchEl.innerHTML = "";
-    if (!isItinerary()) {
-      planSwitchEl.hidden = true;
-      return;
-    }
-    planSwitchEl.hidden = false;
-    itineraries.forEach((item) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "itin-plan";
-      btn.textContent = item.short;
-      btn.setAttribute("data-plan", item.id);
-      btn.setAttribute("aria-pressed", item.id === activePlanId ? "true" : "false");
-      btn.addEventListener("click", () => {
-        setActivePlan(item.id);
-      });
-      planSwitchEl.appendChild(btn);
-    });
-  }
-
   function renderPlanHead() {
-    const plan = currentPlan();
     const head = document.createElement("div");
     head.className = "itin-head";
-    const paragraphs = plan.verdict
+    const paragraphs = itinerary.intro
       .map((line) => "<p>" + escapeHtml(line) + "</p>")
       .join("");
     head.innerHTML =
       '<p class="kicker">' +
-      escapeHtml(plan.short) +
+      escapeHtml(itinerary.kicker) +
       "</p>" +
       "<h3>" +
-      escapeHtml(plan.title) +
+      escapeHtml(itinerary.title) +
       "</h3>" +
       '<div class="itin-verdict">' +
       paragraphs +

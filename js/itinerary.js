@@ -39,7 +39,7 @@
     ],
   };
 
-  const mardiA = {
+  const mardi = {
     id: "mardi",
     day: "Mardi",
     hours: "10h – 18h",
@@ -63,7 +63,7 @@
     ],
   };
 
-  const mercrediA = {
+  const mercredi = {
     id: "mercredi",
     day: "Mercredi",
     hours: "9h – 19h10",
@@ -94,7 +94,7 @@
     ],
   };
 
-  const dimancheA = {
+  const dimanche = {
     id: "dimanche",
     day: "Dimanche",
     hours: "9h30 – 19h",
@@ -130,7 +130,7 @@
     ],
   };
 
-  const lundiA = {
+  const lundi = {
     id: "lundi",
     day: "Lundi",
     hours: "9h30 – 20h",
@@ -166,96 +166,14 @@
     ],
   };
 
-  const dimancheB = {
-    id: "dimanche",
-    day: "Dimanche",
-    hours: "9h30 – 19h",
-    title: "Born le matin, Gràcia l'après-midi",
-    intro:
-      "On quitte le Passeig : trop de monde un dimanche de pont. Musée payant le matin, avant la gratuité de 15h. Gràcia l'après-midi, en mode village.",
-    metro: "L4 · Jaume I, puis L3 · Fontana",
-    slots: [
-      {
-        time: "9h30 – 13h",
-        title: "El Born & MUHBA",
-        text: "Santa Maria del Mar, puis le musée sous la Plaça del Rei. On paie le matin : après 15h l'entrée est gratuite et les files s'allongent. Boqueria fermée.",
-        placeIds: ["santa-maria-del-mar", "muhba"],
-      },
-      {
-        time: "13h – 15h",
-        title: "Casa Vicens",
-        text: "Métro Fontana. Première maison de Gaudí, plus calme et moins chère que Batlló. Visite ~1 h.",
-        placeIds: ["casa-vicens"],
-      },
-      {
-        time: "15h – 19h",
-        title: "Gràcia · Plaça del Sol",
-        text: "Vermouth, ruelles, terrasses. Dimanche de pont : le quartier vit, sans les files du Passeig.",
-        placeIds: ["placa-del-sol"],
-      },
+  window.GUIDE_ITINERARY = {
+    kicker: "Samedi → mercredi",
+    title: "Cinq jours",
+    intro: [
+      "Dimanche sur le Passeig (Batlló puis Pedrera, à dix minutes à pied), lundi dans les collines de Gràcia, mardi vers la mer, mercredi Encants et Sant Pau avant les valises.",
+      "Les journées suivent ce qui ferme : Boqueria le dimanche, musée d'histoire le lundi, Encants le mardi. La Sagrada n'y est pas — complet.",
+      "Batlló et Pedrera le même dimanche, quitte à partager le Passeig avec le week-end.",
     ],
+    days: [samedi, dimanche, lundi, mardi, mercredi],
   };
-
-  const lundiB = {
-    id: "lundi",
-    day: "Lundi",
-    hours: "9h30 – 20h",
-    title: "Güell, puis le Passeig en semaine",
-    intro:
-      "Les icônes passent au lundi. Journée dense : si l'énergie manque, garder Pedrera et laisser Batlló (la façade se voit du trottoir). Gràcia a déjà été faite dimanche.",
-    metro: "Bus 24 · Güell puis Passeig de Gràcia ; taxi vers les bunkers",
-    slots: [
-      {
-        time: "9h30 – 12h15",
-        title: "Parc Güell",
-        text: "Zone monumentale horodatée, en semaine. Bus 24, ou L3 Lesseps puis 15 à 20 minutes de montée. Quitter le parc vers 12h10.",
-        placeIds: ["parc-guell"],
-      },
-      {
-        time: "14h – 16h",
-        title: "La Pedrera",
-        text: "Bus 24 depuis Güell jusqu'au Passeig. Casa Milà en semaine : un cran plus calme qu'un dimanche de pont. Déjeuner juste avant, sur le boulevard.",
-        placeIds: ["pedrera"],
-      },
-      {
-        time: "16h15 – 18h",
-        title: "Casa Batlló",
-        text: "Dix minutes à pied plus bas. Ouverte tard : on n'est pas à la ramasse. Si c'est trop, s'arrêter à la façade et à la Casa Amatller, à côté.",
-        placeIds: ["casa-batllo"],
-      },
-      {
-        time: "18h30 – 20h",
-        title: "Bunkers del Carmel",
-        text: "Coucher de soleil vers 19h40 en septembre. Gratuit. Taxi depuis le Passeig : trop de colline après trois visites.",
-        placeIds: ["bunkers"],
-      },
-    ],
-  };
-
-  window.GUIDE_ITINERARIES = [
-    {
-      id: "a",
-      short: "Plan A",
-      label: "actuel",
-      title: "Actuel",
-      verdict: [
-        "Le fil principal du séjour. Dimanche sur le Passeig (Batlló puis Pedrera, à dix minutes à pied), lundi dans les collines de Gràcia, mardi vers la mer, mercredi Encants et Sant Pau avant les valises.",
-        "Les journées suivent ce qui ferme : Boqueria le dimanche, musée d'histoire le lundi, Encants le mardi. La Sagrada n'y est pas — complet.",
-        "C'est le plan le plus classique : Batlló et Pedrera le même dimanche, quitte à partager le Passeig avec le week-end.",
-      ],
-      days: [samedi, dimancheA, lundiA, mardiA, mercrediA],
-    },
-    {
-      id: "b",
-      short: "Plan B",
-      label: "dimanche chargé",
-      title: "Dimanche chargé",
-      verdict: [
-        "Le 13 septembre clôt un pont de trois jours (la Diada tombait vendredi). Le Passeig sera plein, et le musée d'histoire gratuit après 15h aussi. On sort donc du boulevard le dimanche, et on y revient le lundi.",
-        "Dimanche : Born et musée le matin — on paie, avant la gratuité — puis Vicens et Gràcia. Lundi : Güell, Pedrera et Batlló en semaine, bunkers le soir. Mardi et mercredi sont les mêmes qu'au plan A.",
-        "Lundi est la journée dense. Si le rythme casse, gardez Pedrera : Batlló se voit très bien de la rue.",
-      ],
-      days: [samedi, dimancheB, lundiB, mardiA, mercrediA],
-    },
-  ];
 })();

@@ -222,17 +222,12 @@ a {
   max-width: 100%;
 }
 
-.filters,
-.itin-switch {
+.filters {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
   max-width: 100%;
   justify-content: flex-end;
-}
-
-.itin-switch[hidden] {
-  display: none !important;
 }
 
 .toolbar h2 {
@@ -486,25 +481,6 @@ a {
   letter-spacing: -0.02em;
 }
 
-.itin-plan {
-  appearance: none;
-  border: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--ink);
-  border-radius: 999px;
-  padding: 0.48rem 0.85rem;
-  font: inherit;
-  font-size: 0.86rem;
-  cursor: pointer;
-}
-
-.itin-plan:hover,
-.itin-plan[aria-pressed="true"] {
-  background: var(--navy);
-  color: var(--cream);
-  border-color: var(--navy);
-}
-
 .itin-verdict {
   margin-top: 0.95rem;
   padding-top: 0.9rem;
@@ -680,8 +656,7 @@ a {
   }
 
   .toolbar-controls,
-  .filters,
-  .itin-switch {
+  .filters {
     align-items: flex-start;
     justify-content: flex-start;
   }
@@ -720,7 +695,6 @@ a {
 @media print {
   .topbar,
   .filters,
-  .itin-switch,
   .map-panel,
   .actions {
     display: none !important;
