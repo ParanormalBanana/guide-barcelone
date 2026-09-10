@@ -2,13 +2,27 @@
   const places = window.GUIDE_PLACES;
   const categories = window.GUIDE_CATEGORIES;
   const sections = window.GUIDE_SECTIONS;
+  const itinerary = window.GUIDE_ITINERARY;
 
   const listEl = document.getElementById("place-list");
   const filtersEl = document.getElementById("filters");
   const countEl = document.getElementById("visible-count");
+  const leadEl = document.getElementById("list-lead");
+  const legendEl = document.getElementById("legend");
   let activeFilter = "all";
   let activeId = null;
   const markers = new Map();
+
+  const itineraryPlaceIds = [];
+  const placeDay = {};
+  itinerary.forEach((day) => {
+    day.slots.forEach((slot) => {
+      (slot.placeIds || []).forEach((id) => {
+        if (!placeDay[id]) placeDay[id] = day.id;
+        if (itineraryPlaceIds.indexOf(id) === -1) itineraryPlaceIds.push(id);
+      });
+    });
+  });
 
   function pad(n) {
     return String(n).padStart(2, "0");
@@ -16,6 +30,10 @@
 
   function isMobile() {
     return window.matchMedia("(max-width: 920px)").matches;
+  }
+
+  function isItinerary() {
+    return activeFilter === "itinerary";
   }
 
   function mapsUrl(place) {
@@ -33,18 +51,23 @@
       .replace(/"/g, "&quot;");
   }
 
+  function placeById(id) {
+    return places.find((p) => p.id === id);
+  }
+
   function renderFilters() {
     filtersEl.innerHTML = "";
     categories.forEach((cat) => {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "filter";
+      btn.className = "filter" + (cat.id === "itinerary" ? " filter-itin" : "");
       btn.textContent = cat.short;
       btn.setAttribute("aria-pressed", cat.id === activeFilter ? "true" : "false");
       btn.addEventListener("click", () => {
         activeFilter = cat.id;
         renderFilters();
         renderList();
+        updateChrome();
         syncMarkers();
         fitVisible();
       });
@@ -52,16 +75,123 @@
     });
   }
 
+  function updateChrome() {
+    if (isItinerary()) {
+      countEl.textContent = "5";
+      leadEl.textContent = " jours, samedi soir → mercredi après-midi.";
+      legendEl.innerHTML =
+        '<span><i class="dot day-samedi"></i>Samedi</span>' +
+        '<span><i class="dot day-dimanche"></i>Dimanche</span>' +
+        '<span><i class="dot day-lundi"></i>Lundi</span>' +
+        '<span><i class="dot day-mardi"></i>Mardi</span>' +
+        '<span><i class="dot day-mercredi"></i>Mercredi</span>';
+    } else {
+      leadEl.textContent = " lieux affichés. Filtrez, cliquez un pin, ou une fiche.";
+      legendEl.innerHTML =
+        '<span><i class="dot classics"></i>Incontournables</span>' +
+        '<span><i class="dot heritage"></i>Patrimoine</span>' +
+        '<span><i class="dot parks"></i>Parcs &amp; histoire</span>' +
+        '<span><i class="dot local"></i>Culture locale</span>';
+    }
+  }
+
   function visiblePlaces() {
+    if (isItinerary()) {
+      return itineraryPlaceIds.map(placeById).filter(Boolean);
+    }
     return places.filter(
       (place) => activeFilter === "all" || place.category === activeFilter
     );
   }
 
-  function renderList() {
+  function assignNumbers() {
+    if (isItinerary()) {
+      itineraryPlaceIds.forEach((id, i) => {
+        const place = placeById(id);
+        if (place) place.number = i + 1;
+      });
+      places.forEach((place) => {
+        if (itineraryPlaceIds.indexOf(place.id) === -1) place.number = 0;
+      });
+      return;
+    }
+    let index = 0;
+    sections.forEach((section) => {
+      places
+        .filter((p) => p.category === section.id)
+        .forEach((place) => {
+          index += 1;
+          place.number = index;
+        });
+    });
+  }
+
+  function renderItinerary() {
+    listEl.innerHTML = "";
+    assignNumbers();
+    itinerary.forEach((day) => {
+      const article = document.createElement("article");
+      article.className = "itin-day day-" + day.id;
+      article.id = "jour-" + day.id;
+      let slotsHtml = day.slots
+        .map((slot) => {
+          const chips = (slot.placeIds || [])
+            .map((id) => {
+              const place = placeById(id);
+              if (!place) return "";
+              return (
+                '<button class="btn btn-map" type="button" data-focus="' +
+                id +
+                '">' +
+                pad(place.number) +
+                " · " +
+                escapeHtml(place.name) +
+                "</button>"
+              );
+            })
+            .join("");
+          return (
+            '<li class="itin-slot">' +
+            '<p class="itin-time">' +
+            escapeHtml(slot.time) +
+            "</p>" +
+            "<h4>" +
+            escapeHtml(slot.title) +
+            "</h4>" +
+            "<p>" +
+            escapeHtml(slot.text) +
+            "</p>" +
+            (chips ? '<div class="actions">' + chips + "</div>" : "") +
+            "</li>"
+          );
+        })
+        .join("");
+      article.innerHTML =
+        '<p class="kicker">' +
+        escapeHtml(day.hours) +
+        "</p>" +
+        "<h3>" +
+        escapeHtml(day.day) +
+        " · " +
+        escapeHtml(day.title) +
+        "</h3>" +
+        "<p>" +
+        escapeHtml(day.intro) +
+        "</p>" +
+        '<p class="itin-metro">' +
+        escapeHtml(day.metro) +
+        "</p>" +
+        '<ol class="itin-slots">' +
+        slotsHtml +
+        "</ol>";
+      listEl.appendChild(article);
+    });
+  }
+
+  function renderPlaceList() {
     listEl.innerHTML = "";
     const visible = new Set(visiblePlaces().map((p) => p.id));
-    let index = 0;
+    assignNumbers();
 
     sections.forEach((section) => {
       const items = places.filter((p) => p.category === section.id);
@@ -80,8 +210,6 @@
       listEl.appendChild(head);
 
       items.forEach((place) => {
-        index += 1;
-        place.number = index;
         const card = document.createElement("article");
         card.className = "place " + place.category;
         card.id = place.id;
@@ -91,7 +219,7 @@
           '<div class="place-top">' +
           "<div>" +
           '<div class="num">' +
-          pad(index) +
+          pad(place.number) +
           "</div>" +
           "<h4>" +
           escapeHtml(place.name) +
@@ -128,6 +256,11 @@
     countEl.textContent = String(visible.size);
   }
 
+  function renderList() {
+    if (isItinerary()) renderItinerary();
+    else renderPlaceList();
+  }
+
   const map = L.map("map", {
     scrollWheelZoom: false,
     zoomControl: true,
@@ -144,12 +277,17 @@
   map.once("focus", () => map.scrollWheelZoom.enable());
   map.on("click", () => map.scrollWheelZoom.enable());
 
+  function pinClass(place) {
+    if (isItinerary() && placeDay[place.id]) return "day-" + placeDay[place.id];
+    return place.category;
+  }
+
   function pinIcon(place, active) {
     return L.divIcon({
       className: "pin-icon",
       html:
         '<div class="pin ' +
-        place.category +
+        pinClass(place) +
         (active ? " is-active" : "") +
         '"><span>' +
         place.number +
@@ -161,6 +299,7 @@
   }
 
   function addMarkers() {
+    assignNumbers();
     places.forEach((place) => {
       const marker = L.marker([place.lat, place.lng], {
         icon: pinIcon(place, false),
@@ -182,9 +321,10 @@
   }
 
   function syncMarkers() {
+    assignNumbers();
     const visible = new Set(visiblePlaces().map((p) => p.id));
     markers.forEach((marker, id) => {
-      const place = places.find((p) => p.id === id);
+      const place = placeById(id);
       marker.setIcon(pinIcon(place, id === activeId));
       marker.setZIndexOffset(id === activeId ? 1000 : 0);
       if (visible.has(id)) {
@@ -202,16 +342,23 @@
     map.fitBounds(bounds, { padding: [28, 28], maxZoom: 13, animate: false });
   }
 
+  function placeInCurrentView(place) {
+    if (activeFilter === "all") return true;
+    if (isItinerary()) return itineraryPlaceIds.indexOf(place.id) !== -1;
+    return place.category === activeFilter;
+  }
+
   function focusPlace(id, fromList) {
-    const place = places.find((p) => p.id === id);
+    const place = placeById(id);
     if (!place) return;
-    if (activeFilter !== "all" && place.category !== activeFilter) {
+    if (!placeInCurrentView(place)) {
       activeFilter = "all";
       renderFilters();
       renderList();
+      updateChrome();
     }
     activeId = id;
-    document.querySelectorAll(".place").forEach((el) => {
+    document.querySelectorAll(".place, .itin-day").forEach((el) => {
       el.classList.toggle("is-active", el.id === id);
     });
     syncMarkers();
@@ -228,8 +375,13 @@
         block: "start",
       });
     } else if (!fromList) {
-      const card = document.getElementById(id);
-      if (card) card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      if (isItinerary()) {
+        const btn = listEl.querySelector('[data-focus="' + id + '"]');
+        if (btn) btn.closest(".itin-day").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } else {
+        const card = document.getElementById(id);
+        if (card) card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
     }
   }
 
@@ -246,6 +398,7 @@
 
   renderFilters();
   renderList();
+  updateChrome();
   addMarkers();
   syncMarkers();
 

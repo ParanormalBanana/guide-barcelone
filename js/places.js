@@ -323,6 +323,7 @@ window.GUIDE_PLACES = [
 
 window.GUIDE_CATEGORIES = [
   { id: "all", label: "Tous les lieux", short: "Tous" },
+  { id: "itinerary", label: "Itinéraire", short: "Itinéraire" },
   { id: "classics", label: "Les incontournables", short: "Incontournables" },
   { id: "heritage", label: "Patrimoine méconnu", short: "Patrimoine" },
   { id: "parks", label: "Parcs & histoire", short: "Parcs" },

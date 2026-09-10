@@ -251,6 +251,15 @@ a {
   border-color: var(--navy);
 }
 
+.filter-itin {
+  border-color: color-mix(in srgb, var(--terracotta) 45%, var(--line));
+}
+
+.filter-itin[aria-pressed="true"] {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+}
+
 #map {
   flex: 1 1 auto;
   width: 100%;
@@ -439,6 +448,80 @@ a {
 .dot.heritage { background: var(--teal-bright); }
 .dot.parks { background: var(--sage); }
 .dot.local { background: var(--gold); }
+.dot.day-samedi { background: var(--terracotta); }
+.dot.day-dimanche { background: var(--teal-bright); }
+.dot.day-lundi { background: var(--sage); }
+.dot.day-mardi { background: var(--gold); }
+.dot.day-mercredi { background: var(--navy); }
+
+.itin-day {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.15rem 1.05rem;
+  border-left: 5px solid var(--navy);
+  scroll-margin-top: 1rem;
+}
+
+.itin-day.day-samedi { border-left-color: var(--terracotta); }
+.itin-day.day-dimanche { border-left-color: var(--teal-bright); }
+.itin-day.day-lundi { border-left-color: var(--sage); }
+.itin-day.day-mardi { border-left-color: var(--gold); }
+.itin-day.day-mercredi { border-left-color: var(--navy); }
+
+.itin-day .kicker {
+  color: var(--terracotta-deep);
+}
+
+.itin-day h3 {
+  margin: 0.15rem 0 0.35rem;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+.itin-day > p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+}
+
+.itin-metro {
+  font-size: 0.86rem;
+  color: var(--ink);
+}
+
+.itin-slots {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.itin-slot {
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+.itin-time {
+  margin: 0 0 0.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--terracotta-deep);
+}
+
+.itin-slot h4 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.12rem;
+}
+
+.itin-slot > p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+}
 
 .site-footer {
   padding: 2.5rem 0 3rem;
@@ -487,6 +570,11 @@ a {
 .pin.heritage { background: var(--teal); }
 .pin.parks { background: var(--sage); }
 .pin.local { background: var(--gold); color: var(--ink); }
+.pin.day-samedi { background: var(--terracotta); }
+.pin.day-dimanche { background: var(--teal); }
+.pin.day-lundi { background: var(--sage); }
+.pin.day-mardi { background: var(--gold); color: var(--ink); }
+.pin.day-mercredi { background: var(--navy); }
 .pin.is-active {
   outline: 3px solid color-mix(in srgb, white 70%, transparent);
 }
